@@ -107,6 +107,9 @@ namespace ExchangeRate.WinService
         }
         private static void SaveCurrency(DovizKurlari kur)
         {
+        //Döngünün herhangi bir adımında işlem  hata alır ve yarıda kesilir ise, döviz kurlarının bir kısmı güncellenmiş,
+        //bir kısmı güncellenmemiş olacak. Bu yüzden transaction kullanmanı tavsiye ediyorum :) işlem eğer hata alırsa hepsi 
+        //rollback yapılsın. işlem başarıyla tamamlanırsa, commit'leyip db'ye gönder gitsin. 
             foreach (Currency item in kur.Tarih_Date.Currency)
             {
                 string sConn = System.Configuration.ConfigurationManager.ConnectionStrings["NLog"].ConnectionString;
